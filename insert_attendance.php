@@ -11,7 +11,6 @@
 </head>
 <body>
   
-
 <div class="alert">
 <?php
   include_once 'db.php';
