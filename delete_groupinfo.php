@@ -26,10 +26,13 @@
         $child_id = $row['ID'];
         $sql = " DELETE FROM `attendance` WHERE Child_id = '$child_id'";
         mysqli_query($conn, $sql);
+        $sql = " DELETE FROM `skills` WHERE Child_id = '$child_id'";
+        mysqli_query($conn, $sql);
         $sql = " DELETE FROM `child` WHERE ID_group = '$id'";
         mysqli_query($conn, $sql);
         }
     }
+    
     $sql = " DELETE FROM `group` WHERE ID_group = '$id'";
      if (mysqli_query($conn, $sql)) {
       echo "<div class='alert_text'><p>Grupa tika vieksmīgi izdzēsta!<p></div>";

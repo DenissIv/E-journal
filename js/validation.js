@@ -2,7 +2,7 @@ function validateForm() {
     let groupName = document.forms["group_validation"]["name"].value;
     let message = document.getElementById("validation_message");
     let messageText = "*Šis lauks ir obligāts!"
-    var letters = /^[a-zA-Z-]+(\s{0,1}[a-zA-Z- ])*$/;
+    let letters = /^[A-zĀāČčĒēĢģĪīĶķĻļŅņŠšŪūŽž]+(\s[A-zĀāČčĒēĢģĪīĶķĻļŅņŠšŪūŽž])*$/; // /^[a-zA-Z\u00C0-\u017F]+(\s[a-zA-Z\u00C0-\u017F])*$/;
     if (groupName == "") {
         message.textContent = messageText;
         return false;
@@ -23,7 +23,7 @@ function validateForm_child() {
     let messageSurname = document.getElementById("validation_message_surname");
     let messageText = "*Šis lauks ir obligāts!"
     let messageTextTwo = "*Ievadītie dati neatbilst datu formātam!";
-    var letters = /^[a-zA-Z-]+(\s{0,1}[a-zA-Z- ])*$/;
+    let letters = /^[A-zĀāČčĒēĢģĪīĶķĻļŅņŠšŪūŽž]+(\s[A-zĀāČčĒēĢģĪīĶķĻļŅņŠšŪūŽž])*$/;
     let bool = true;
     if (true) {
         if (groupName == "") {

@@ -14,15 +14,7 @@ span.onclick = function() {
     }
     // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
-    /*var x = document.getElementById("container");
-    window.onload = function() {
-        if (x.innerHTML === "") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "flex";
-        }
-    }*/
+}

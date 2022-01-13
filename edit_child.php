@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Digitāla kapsēta</title>
+    <title>E-žurnāls</title>
 </head>
 <style>
     .show{
@@ -27,10 +27,12 @@
   $query = "SELECT * FROM `child` where ID = $child_id";
   $group_results = mysqli_query($conn, $query);
   $row = mysqli_fetch_assoc($group_results );
-  echo '<form action="edit_childinfo.php" method="POST" enctype="multipart/form-data">';
+  echo '<form name="child_validation" action="edit_childinfo.php" onsubmit="return validateForm_child()" method="POST" enctype="multipart/form-data">';
   ?>
                 <div class="item_reg"><input type="text" class="form-control" name="name"  value="<?php echo $row['Name'];?>" placeholder="Vārds"></div>
+                <div><p id="validation_message_name" class="validation_message"></p></div>
                 <div class="item_reg"><input type="text" class="form-control" name="surname"  value="<?php echo $row['Surname'];?>" placeholder="Uzvārds"></div>
+                <div><p id="validation_message_surname" class="validation_message"></p></div>
                 <div class="item_reg hidden"><input type="text" class="form-control" name="child_id" value="<?php echo $child_id;?>"></div>
                 <div class="item_reg"><input class="btn" type="submit" name="submit" value="Rediģēt datus" /> </div>
             </form>
@@ -39,7 +41,7 @@
 </div>
 </body>
  
- </script> 
+<script type="text/javascript" src="js/validation.js"></script> 
 
 </html>
 
