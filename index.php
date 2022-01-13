@@ -43,7 +43,7 @@
         }
         echo "</table>";
         ?>
-        <!-- Paslēptasi bloks, kurš satur grupas izveidošanas formu -->
+        <!-- Paslēptais bloks, kurš satur grupas izveidošanas formu -->
         <div id="myModal" class="modal">    
         <div class="modal-content">
         <span class="close">&times;</span>

@@ -11,13 +11,11 @@
 </head>
 <body>
   
-
 <div class="alert">
 <?php
   include_once 'db.php';
-
+  //tiek izveidots update vaicājums par bērna datu rediģēšanu
   if(isset($_POST['submit'])){
-
     $name= $_POST['name'];
     $surname= $_POST['surname'];
     $id = $_POST['child_id'];
@@ -25,7 +23,7 @@
      if (mysqli_query($conn, $sql)) {
       echo "<div class='alert_text'><p>Dati tika veiksmīgi rediģēti!<p></div>";
      } else {
-        echo "Error: " . $sql . ":-" . mysqli_error($conn);
+        echo "Kļūda: " . $sql . ":-" . mysqli_error($conn);
      } 
     mysqli_close($conn);
   }

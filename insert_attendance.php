@@ -19,9 +19,11 @@
     $days_in_month= $_POST['days_count'];
     $days_fixed = $days_in_month;
     $j = 0;
+    //cikls, ar kura palīdzību tiek paņemts katrs bērns no saraksta 
     for($i=0; $i<$child_count; $i++){
       $child_id= $_POST['child_id'][$i];
       $day = 1;
+      //cikls, ar kura palīdzību tiek atzīmēts visu mēneša dienu apmeklējums
       for($j; $j<$days_in_month; $j++){
          $attendance= $_POST['attendance'][$j];
          $date = $_POST['date'][$j];

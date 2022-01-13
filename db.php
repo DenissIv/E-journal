@@ -1,4 +1,5 @@
 <?php
+    // savienojuma ar datu bāzi izveidošana
     $servername='localhost';
     $username='root';
     $password='';

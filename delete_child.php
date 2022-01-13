@@ -26,10 +26,10 @@
 </style>
 <body>
 <div id="myModal" class="modal show">    
-<!-- Modal content -->
 <div class="modal-content">
   <a href="javascript:history.back()"><span class="close">&times;</span></a>
   <?php
+  //paziņojuma loga izveidošana/attēlošana
   include_once 'db.php';
   $child_id = $_GET['child_id'];
   $query = "SELECT * FROM `child` where ID = $child_id";

@@ -17,7 +17,7 @@
   include_once 'db.php';
 
   if(isset($_POST['submit'])){
-
+    //vaicājuma izvediošana, kas pievieno grupu datu bāzē
     $name= $_POST['name'];
     $sql = "INSERT INTO `group` (Group_name)
     VALUES ('$name')";

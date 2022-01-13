@@ -13,16 +13,16 @@
 <div class="alert">
 <?php
   include_once 'db.php';
-
+  //tiek izveidots update vaicājums par grupas datu rediģēšanu
   if(isset($_POST['submit'])){
-
+    
     $name= $_POST['name'];
     $id = $_POST['group_id'];
     $sql = "UPDATE `group` SET Group_name ='$name' WHERE ID_group='$id'";
      if (mysqli_query($conn, $sql)) {
       echo "<div class='alert_text'><p>Dati tika veiksmīgi rediģēti!<p></div>";
      } else {
-        echo "Error: " . $sql . ":-" . mysqli_error($conn);
+        echo "Kļūda: " . $sql . ":-" . mysqli_error($conn);
      } 
     mysqli_close($conn);
   }

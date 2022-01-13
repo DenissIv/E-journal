@@ -26,10 +26,10 @@
 </style>
 <body>
 <div id="myModal" class="modal show">    
-<!-- Modal content -->
 <div class="modal-content">
   <a href="javascript:history.back()"><span class="close">&times;</span></a>
   <?php
+  //paziņojuma loga izveidošana/attēlošana
   include_once 'db.php';
   $group_id = $_GET['group_id'];
   $query = "SELECT * FROM `group` where ID_group = $group_id";

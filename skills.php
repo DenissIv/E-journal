@@ -59,7 +59,6 @@
         $prev_year = $_GET['year']-1;
     }
 
-    //$current_month = date('m')-1;
     $page_month = $_GET['month'];
     if ($_GET['month']==12){
         $next_month = 1;
@@ -79,19 +78,19 @@
         $query = "SELECT * FROM `group` where ID_group = $id";
         $group_results = mysqli_query($conn, $query);
         if (mysqli_num_rows($group_results) > 0) {
-            //output data of each row
             while($row = mysqli_fetch_assoc($group_results)) {
               $group_name = $row['Group_name'];   
             }
           }
   ?>
+     <!-- Saite uz apmeklējuma tabulu-->
     <div class="skills_link"><?php echo '<a href="grupa.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up">Apmeklējuma tabula</a>'?></div>
     <div class="title">
     <div class="group_name_block">
         <div><h1 class="about group_name"><?php echo $group_name; ?></h1></div>
     </div>
+     <!-- Grupas nosaukuma rediģēšanas forma-->
         <div id="myModalEdit" class="modal-edit">    
-        <!-- Modal content -->
         <div class="modal-content-edit">
          <span class="close-edit">&times;</span>
         <form action="edit_group.php" method="POST" enctype="multipart/form-data">
@@ -101,7 +100,7 @@
     </form>
     </div>
     </div>
-        
+     <!-- Gadu un mēnešu pārslēgšanas bloks-->    
     <div  class="year_block">
          <div class="back"> <?php echo "<a class='link_month' href='skills.php?id=$id&month=$page_month&year=$prev_year&sort=Surname&order=up&theme=$theme'> &larr; </a>"?></div>    
         <h1 class="about"><?php echo '20'.$years[$page_year-21]; ?></h1>
@@ -114,6 +113,7 @@
         </div>
     </div>
     </div>
+    <!-- Jomu saraksta bloks-->
     <div class="skills_category">
         <div class="first-row">
             <div > <a class="theme_link" <?php echo 'href="skills.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up&theme=0"';?>>Valodu mācību joma</a></div> 
@@ -134,7 +134,7 @@
         return ($weekDay == 0 || $weekDay == 6);
     } 
     $sort_name = $_GET['sort'];
-    //$sort_order = $_GET['order'];
+    //saraksta kārtošana
     if($_GET['order'] == "up"){
     $query = "SELECT * FROM `child` where ID_group = $id  ORDER BY $sort_name ASC";
     }
@@ -144,6 +144,7 @@
         $group_results = mysqli_query($conn, $query);
         $child_count = 0;
         $i=0;
+        //atkarībā no izvēlētās jomas tiek izveidots attiecīgs masīvs ar prasmēm.
         if($_GET['theme']==0){
             $skills = array('Saprot, ka ar vārdiem precīzāk var paust savas domas, vajadzības.','Atbild uz jautājumu ar darbību vai vārdiem.','Vārdiski vai ar darbību vēršas pie citiem, lai izteiktu savu vajadzību.'
             ,'Vārdos vai neverbāli pauž emocijas.','Klausās latviešu valodas vārdu skanējumā un reaģē uz atsevišķiem izteikumiem.', '*Sarunā pasaka un atkārto dažus biežāk dzirdētus vārdus.', 'Ieklausās tekstā, reaģē uz to ar emocijām, darbību un valodu'
@@ -185,14 +186,12 @@
               echo '<form action="insert_skills.php" method="POST" enctype="multipart/form-data">'; 
               
         if (mysqli_num_rows($group_results) > 0) {
-            //output data of each row
             while($row = mysqli_fetch_assoc($group_results)) {
               $name = $row['Name'];  
               $surname = $row['Surname'];
               $child_id = $row['ID'];
               $child_count++;
-              //$query_attendance = "SELECT * FROM `attendance` where Child_id = $child_id AND Date = '20$page_year-$page_month-1'";
-              $i--;
+              $i--; //samazina vērtību, jo uz šo brīdi tas ir lielāks nekā masīva garums.
               $query_skills = "SELECT * FROM `skills` where Child_id = $child_id AND Date = '20$page_year-$page_month-1' AND Skill_name='$skills[$i]'";
               $skills_results = mysqli_query($conn, $query_skills);
               echo '<div class="list-flex">';
@@ -255,9 +254,7 @@
         echo '<div class="item_reg hidden"><input type="text" class="form-control" name="skills_count" value="'.count($skills).'"></div>';
         echo '<div class="item_reg"><input class="btn" type="submit" name="submit" value="Pievienot" /> </div>';
         echo '</form>';      
-     
-     /*
-      $conn->close();*/
+        $conn->close();
     ?>
     </div>
 </body>
