@@ -15,7 +15,7 @@
 <div class="alert">
 <?php
   include_once 'db.php';
-
+  //vaicājuma izvediošana, kas pievieno bērnu datu bāzē
   if(isset($_POST['submit'])){
 
     $name= $_POST['name'];

@@ -15,6 +15,7 @@
   include_once 'db.php';
 
   if(isset($_POST['submit'])){
+   //tiek izdzēsts bērns, kā arī tiek izdzēsti visi apmeklējumi un prasmju vērtējumi, kas ir saistīti ar bērnu.
     $id = $_POST['child_id'];
     $sql = " DELETE FROM `child` WHERE ID = '$id'";
     mysqli_query($conn, $sql);

@@ -20,9 +20,11 @@
     $child_count= $_POST['child_count'];
     $skills_count= $_POST['skills_count'];
     $j = 0;
+    //cikls, ar kura palīdzību tiek paņemts katrs bērns no saraksta 
     for($i=0; $i<$child_count; $i++){
       $child_id= $_POST['child_id'][$i];
       $day = 1;
+      //cikls, ar kura palīdzību tiek novērtēta katra prasme konkrētajā jomā
       for($j; $j<$skills_count; $j++){
          $mark= $_POST['mark'][$j];
          $skill_name = $_POST['skill_name'][$j];
@@ -36,7 +38,6 @@
     }
     echo "<div class='alert_text'><p>Vērtējums tika veiksmīgi pievienots datubāzē!<p></div>";
   }
-
   ?>
     <div class="item back">
    <a href="#" onclick="GoBackWithRefresh();return false;" >Atpakaļ</a> 

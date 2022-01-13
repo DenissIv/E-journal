@@ -57,20 +57,21 @@
         $query = "SELECT * FROM `group` where ID_group = $id";
         $group_results = mysqli_query($conn, $query);
         if (mysqli_num_rows($group_results) > 0) {
-            //output data of each row
             while($row = mysqli_fetch_assoc($group_results)) {
               $group_name = $row['Group_name'];   
             }
           }
     ?>
+    <!-- Prasmju tabulas poga-->
     <div class="skills_link"><?php echo '<a href="skills.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up&theme=0">Prasmju tabula</a>'?></div>
+     <!-- Grupas nosaukuma bloks-->
     <div class="title">
     <div class="group_name_block">
         <div><h1 class="about group_name"><?php echo $group_name; ?></h1></div>
         <div ><button id="editBtn" class="edit-btn"></button></div>
     </div>
+      <!-- Forma par grupas nosaukuma rediģēšanu-->
         <div id="myModalEdit" class="modal-edit">    
-        <!-- Modal content -->
         <div class="modal-content-edit">
          <span class="close-edit">&times;</span>
         <form name="group_validation" action="edit_group.php" onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
@@ -81,7 +82,7 @@
     </form>
     </div>
     </div>
-        
+    <!-- Gadu un mēnešu mainīšanas bloks--> 
     <div  class="year_block">
          <div class="back"> <?php echo "<a class='link_month' href='grupa.php?id=$id&month=$page_month&year=$prev_year&sort=Surname&order=up'> &larr; </a>"?></div>    
         <h1 class="about"><?php echo '20'.$years[$page_year-21]; ?></h1>
@@ -93,9 +94,9 @@
         <div class="forward"><?php echo "<a class='link_month' href='grupa.php?id=$id&month=$next_month&year=$page_year&sort=Surname&order=up'> &rarr; </a>"?></div>      
         </div>
     </div>
+      <!-- Bērna pievienošanas forma-->
     <div class="add_group"><button id="myBtn">Pievienot bērnu</button></div>
     <div id="myModal" class="modal">    
-<!-- Modal content -->
 <div class="modal-content">
   <span class="close">&times;</span>
   <form name="child_validation" action="insert_child.php" onsubmit="return validateForm_child()" method="POST" enctype="multipart/form-data">
@@ -177,11 +178,9 @@
                     if ($row['Entry']=='A') {
                         echo '<option selected value="A">A</option>';
                         $attendance_count++;
-        
                      } 
                         else {
                         echo '<option value="A">A</option>';
-                        
                      }
                      if ($row['Entry']=='S') {
                         echo '<option selected value="S">S</option>';
@@ -213,6 +212,7 @@
                      }
                           
                        echo '</select>';
+                       // Pēc noklusējuma visiem laukiem tiek izveidots tukšs ieraksts ar vērtību empty
                         if (mysqli_num_rows($attendance_results)==0){
                         $date = '20'.$page_year.'-'.$page_month.'-'.$i.'';
                         $sql = "INSERT INTO attendance (Child_id, Entry, Date)
@@ -229,9 +229,7 @@
         echo '<div class="item_reg hidden"><input type="text" class="form-control" name="days_count" value="'.$days_in_month.'"></div>';
         echo '<div class="item_reg"><input class="btn" type="submit" name="submit" value="Pievienot" /> </div>';
         echo '</form>';      
-     
-     /*
-      $conn->close();*/
+        $conn->close();
     ?>
     </div>
     <img src="" alt="">
