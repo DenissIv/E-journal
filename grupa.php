@@ -6,12 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Digitāla kapsēta</title>
-    <style>
-       
-
-
-    </style>
+    <title>E-žurnāls</title>
 </head>
 
 <body>
@@ -26,11 +21,13 @@
         </nav>
     </header>
     <?php
-    $months = array('Janvāris','Februāris','Marts','Aprīlis','Maijs','Jūnijs','Jūlījs','Augusts','Septembris','Oktobris','Novmebris','Decembris');
-    $years = array();
+    $months = array('Janvāris','Februāris','Marts','Aprīlis','Maijs','Jūnijs',
+    'Jūlījs','Augusts','Septembris','Oktobris','Novmebris','Decembris');
+    $years = array(); //paredzēts, ka žurnāls spēj ierakstīt datus 50 gadus, līdz 2071g.
     for($i = 21;$i < 71;$i++) {
         $years[] = $i;
     }   
+    //struktūra, lai iegūtu nākošo vai iepriekšējo gadu  
     $page_year = $_GET['year'];
     if ($_GET['year']==70){
         $next_year = 70;
@@ -43,7 +40,6 @@
         $prev_year = $_GET['year']-1;
     }
 
-    //$current_month = date('m')-1;
     $page_month = $_GET['month'];
     if ($_GET['month']==12){
         $next_month = 1;
@@ -55,8 +51,7 @@
     } else {
     $prev_month = $_GET['month']-1;
     }
-    ?>
-    <?php
+    //grupas nosaukuma izvade 
         include_once 'db.php';
         $id = $_GET['id'];
         $query = "SELECT * FROM `group` where ID_group = $id";
@@ -67,7 +62,7 @@
               $group_name = $row['Group_name'];   
             }
           }
-  ?>
+    ?>
     <div class="skills_link"><?php echo '<a href="skills.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up&theme=0">Prasmju tabula</a>'?></div>
     <div class="title">
     <div class="group_name_block">
@@ -118,12 +113,13 @@
     <div class="cilveki-box">
     
     <?php
+    //funkcija atgriež true, ja padotais datums ir sestdiena vai svētdiena
     function isWeekend($date) {
         $weekDay = date('w', strtotime($date));
         return ($weekDay == 0 || $weekDay == 6);
     } 
     $sort_name = $_GET['sort'];
-    //$sort_order = $_GET['order'];
+    //tiek viekta bērnu saraksta kārtošana
     if($_GET['order'] == "up"){
     $query = "SELECT * FROM `child` where ID_group = $id  ORDER BY $sort_name ASC";
     }
@@ -132,9 +128,9 @@
     }
         $group_results = mysqli_query($conn, $query);
         $child_count = 0;
-       
         echo '<div class="list-flex">';
               echo '<div class="child">Vārds, Uzvārds <a class="asc" href="grupa.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up"></a> <a class="desc" href="grupa.php?id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=down"></a></div>';
+              //tiek iegūts dienu skaits konkrētajā mēnesī un gadā
               $days_in_month = cal_days_in_month(CAL_GREGORIAN,$page_month,2000+$page_year);
               for($i=1; $i<=$days_in_month; $i++){
                   echo '<div class="list-cell">'.$i.'</div>';
@@ -145,7 +141,7 @@
               echo '<form action="insert_attendance.php" method="POST" enctype="multipart/form-data">'; 
               
         if (mysqli_num_rows($group_results) > 0) {
-            //output data of each row
+            //iegūstam nepieciešamos datus no datubāzes, lai tos attēlotu 
             while($row = mysqli_fetch_assoc($group_results)) {
               $name = $row['Name'];  
               $surname = $row['Surname'];
@@ -155,6 +151,7 @@
               $attendance_results = mysqli_query($conn, $query_attendance);
               $attendance_count = 0;
               $notAttendance_count = 0;
+              //tālāk ir bērnu saraksta un apmeklējuma tabulas izvade
               echo '<div class="list-flex">';
               echo '<div class="child"><p>'.$name.' '.$surname.'</p> <a class="edit" href="edit_child.php?child_id='.$child_id.'&id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up"></a><a class="delete" href="delete_child.php?child_id='.$child_id.'&id='.$id.'&month='.$page_month.'&year='.$page_year.'&sort=Surname&order=up"></a></div>';
               echo '<div class="item_reg hidden"><input type="text" class="form-control" name="child_id[]" value="'.$child_id.'"></div>';
@@ -171,6 +168,12 @@
                        else {
                        echo '<option value="empty">-</option>';
                     }
+                    if ($row['Entry']=='B' || isWeekend('20'.$page_year.'-'.$page_month.'-'.$i)) {
+                        echo '<option selected value="B">B</option>';
+                     } 
+                        else {
+                        echo '<option value="B">B</option>';
+                     }  
                     if ($row['Entry']=='A') {
                         echo '<option selected value="A">A</option>';
                         $attendance_count++;
@@ -208,12 +211,7 @@
                         else {
                         echo '<option value="Ng">Ng</option>';
                      }
-                     if ($row['Entry']=='B' || isWeekend('20'.$page_year.'-'.$page_month.'-'.$i)) {
-                        echo '<option selected value="B">B</option>';
-                     } 
-                        else {
-                        echo '<option value="B">B</option>';
-                     }             
+                          
                        echo '</select>';
                         if (mysqli_num_rows($attendance_results)==0){
                         $date = '20'.$page_year.'-'.$page_month.'-'.$i.'';

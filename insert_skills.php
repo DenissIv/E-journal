@@ -18,7 +18,7 @@
 
   if(isset($_POST['submit'])){
     $child_count= $_POST['child_count'];
-    $skills_count= 10;
+    $skills_count= $_POST['skills_count'];
     $j = 0;
     for($i=0; $i<$child_count; $i++){
       $child_id= $_POST['child_id'][$i];
@@ -30,8 +30,8 @@
          $sql = "UPDATE `skills` SET Mark = '$mark' WHERE Child_id = $child_id AND Date = '$date' AND Skill_name = '$skill_name'" ;
          mysqli_query($conn, $sql);
       } 
-      if($skills_count+10<=$skills_count*$child_count){
-      $skills_count+=10;
+      if($skills_count+$skills_count<=$skills_count*$child_count){
+      $skills_count+=$skills_count;
       }
     }
     echo "<div class='alert_text'><p>Vērtējums tika veiksmīgi pievienots datubāzē!<p></div>";

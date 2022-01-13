@@ -17,15 +17,12 @@
   if(isset($_POST['submit'])){
     $id = $_POST['child_id'];
     $sql = " DELETE FROM `child` WHERE ID = '$id'";
-     if (mysqli_query($conn, $sql)) {
-     } else {
-        echo "Error: " . $sql . ":-" . mysqli_error($conn);
-     }
+    mysqli_query($conn, $sql);
     $sql = " DELETE FROM `attendance` WHERE Child_id = '$id'";
-     if (mysqli_query($conn, $sql)) {
-     } else {
-        echo "Error: " . $sql . ":-" . mysqli_error($conn);
-     }
+    mysqli_query($conn, $sql);
+    $sql = " DELETE FROM `skills` WHERE Child_id = '$id'";
+    mysqli_query($conn, $sql);
+   
      echo "<div class='alert_text'><p>Bērns tika veiksmīgi izdzēsts no saraksta!<p></div>";  
     mysqli_close($conn);
   }
